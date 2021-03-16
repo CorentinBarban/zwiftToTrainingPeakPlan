@@ -6,7 +6,6 @@ import time
 import datetime
 import json
 from bs4 import BeautifulSoup
-from dateutil.relativedelta import *
 
 
 class TPconnect(object):
@@ -90,43 +89,6 @@ class TPconnect(object):
         session.headers.update(self._obligatory_headers)
 
         self.session = session
-
-    def get_workouts(self, dateoptions={'front': {}, 'back': {}}):
-        self.init()
-
-        if not dateoptions['back']:
-            dateoptions['back']['days'] = 1
-        oldd = (datetime.datetime.now().today() +
-                relativedelta(**dateoptions['back'])).strftime("%Y-%m-%d")
-
-        if not dateoptions['front']:
-            dateoptions['front']['month'] = 6
-        newd = (datetime.datetime.now().today() +
-                relativedelta(**dateoptions['front'])).strftime("%Y-%m-%d")
-
-        url = 'https://tpapi.trainingpeaks.com' + \
-              '/fitness/v1/athletes/' + str(self.athlete_id) + \
-              '/workouts/' + oldd + '/' + newd
-        print(url)
-        resp = self.session.get(url)
-        if resp.status_code != 200:
-            print(resp)
-            print(resp._content)
-            raise Exception("Cannot get athlete activities")
-        return (resp._content)
-
-    def get_workouts_for_day(self, day):
-        self.init()
-
-        url = 'https://tpapi.trainingpeaks.com' + \
-              '/fitness/v1/athletes/' + str(self.athlete_id) + \
-              '/workouts/' + day + '/' + day
-        resp = self.session.get(url)
-        if resp.status_code != 200:
-            print(resp)
-            print(resp._content)
-            raise Exception("Cannot get athlete activities")
-        return (resp._content)
 
 
 if __name__ == '__main__':
