@@ -41,6 +41,34 @@ class WorkoutBuilder(object):
         with open('createdExample.json', 'w') as outfile:
             json.dump(my_workout_json, outfile, indent=4)
 
+    def adapterZwoStepToTpStep(self):
+        dict = [
+            {
+                "zwoStepName": "Warmup",
+                "tpStepName": "warmUp"
+            },
+            {
+                "zwoStepName": "SteadyState",
+                "tpStepName": "active"
+            },
+            {
+                "zwoStepName": "FreeRide",
+                "tpStepName": "warmUp"
+            },
+            {
+                "zwoStepName": "IntervalsT",
+                "tpStepName": "active"
+            },
+            {
+                "zwoStepName": "Cooldown",
+                "tpStepName": "coolDown"
+            },
+            {
+                "zwoStepName": "Ramp",
+                "tpStepName": "active"
+            }
+        ]
+
 
 if __name__ == '__main__':
     pass
