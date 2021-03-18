@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # import fcntl
+from urllib.request import Request
+
 import requests
 import tempfile
 import time
@@ -89,6 +91,21 @@ class TPconnect(object):
         session.headers.update(self._obligatory_headers)
 
         self.session = session
+
+    def upload_workout(self, workout_name, workout_structure):
+        self.init()
+        url = 'https://tpapi.trainingpeaks.com/fitness/v3/athletes/' + str(self.athlete_id) + '/workouts'
+        payload = {"athleteId": str(self.athlete_id),
+                   "structure": workout_structure,
+                   "workoutDay": (datetime.datetime.now().today()).strftime("%Y-%m-%d"),
+                   "workoutId": 0,
+                   "workoutTypeValueId": 2,
+                   "title": str(workout_name)
+                   }
+        resp = self.session.post(url, data=payload)
+        if resp.status_code != 200:
+            print(resp)
+            print(resp._content)
 
 
 if __name__ == '__main__':
