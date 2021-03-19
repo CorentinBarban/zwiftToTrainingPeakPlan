@@ -92,15 +92,16 @@ class TPconnect(object):
 
         self.session = session
 
-    def upload_workout(self, workout_name, workout_structure):
+    def upload_workout(self, workout_name, workout_structure, workout_time, date):
         self.init()
         url = 'https://tpapi.trainingpeaks.com/fitness/v3/athletes/' + str(self.athlete_id) + '/workouts'
         payload = {"athleteId": str(self.athlete_id),
                    "structure": workout_structure,
-                   "workoutDay": (datetime.datetime.now().today()).strftime("%Y-%m-%d"),
                    "workoutId": 0,
                    "workoutTypeValueId": 2,
-                   "title": str(workout_name)
+                   "title": str(workout_name),
+                   "totalTimePlanned":  workout_time/3600,
+                   "workoutDay": date
                    }
         resp = self.session.post(url, data=payload)
         if resp.status_code != 200:
