@@ -4,6 +4,10 @@ import json
 
 
 def adapter_zwo_power_to_tp_power(zwo_power_name):
+    """
+        Transform zwift power name to training peak power name
+        zwo_power_name : str
+    """
     adapter = {
         "Warmup": "PowerLow",
         "SteadyState": "Power",
@@ -15,6 +19,10 @@ def adapter_zwo_power_to_tp_power(zwo_power_name):
 
 
 def adapter_zwo_step_to_tp_step(zwo_step_name):
+    """
+        Transform zwift step name to training peak step name
+        zwo_power_name : str
+    """
     adapter = {
         "Warmup": "warmUp",
         "SteadyState": "active",
@@ -43,10 +51,16 @@ class WorkoutBuilder(object):
         return self.workout_name
 
     def define_workout_name_from_filename(self):
+        """
+            Extract the workout name from the filename
+        """
         array = re.search('(?<=[a-zA-Z]\d{2}[a-zA-Z]\d{2})(.*)(?=.zwo)', self.file_path)
         self.workout_name = array.group(0).replace('.', ' ')
 
     def parse_xml_file(self):
+        """
+            Parse zwift workout xml to training peak json structure
+        """
         my_workout_json = {"structure": []}
         time_begin = 0
         time_end = 0

@@ -34,6 +34,9 @@ class TPconnect(object):
             self.get_athlete()
 
     def get_athlete(self):
+        """
+            Get information from user
+        """
         s = self.session.get('https://tpapi.trainingpeaks.com/users/v3/user')
         if s.status_code != 200:
             raise Exception("Cannot get user")
@@ -66,6 +69,9 @@ class TPconnect(object):
         self._rate_lock.flush()
 
     def _get_session(self):
+        """
+            Get authentification session
+        """
         session = requests.Session()
         params = {}
         preResp = session.get("https://home.trainingpeaks.com/login",
@@ -93,6 +99,18 @@ class TPconnect(object):
         self.session = session
 
     def upload_workout(self, workout_name, workout_structure, workout_time, date):
+        """
+            Upload workout
+
+            workout_name : str
+                name of the workout
+            workout_structure : json
+                structure of the workout
+            workout_time : number
+                duration of the workout
+            date : str
+                date of the workout
+        """
         self.init()
         url = 'https://tpapi.trainingpeaks.com/fitness/v3/athletes/' + str(self.athlete_id) + '/workouts'
         payload = {"athleteId": str(self.athlete_id),
