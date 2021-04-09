@@ -51,7 +51,6 @@ def upload_all_workout_from_directory(directory_path):
 if __name__ == '__main__':
     username, password = open("trainingpeaks.key").read().rstrip().split(':')
     tpconnect = tp.TPconnect(username, password)
-    tpconnect.init()
-    # upload_all_workout_from_directory(DIRECTORY_WORKOUT)
-    # print("Connected to TrainingPeaks")
-    # wourkoutBuilder.transformWorkout()
+    print("Connected to TrainingPeaks")
+    upload_all_workout_from_directory(DIRECTORY_WORKOUT)
+    print("All workouts uploaded")

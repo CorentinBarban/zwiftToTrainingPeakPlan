@@ -124,7 +124,6 @@ class TPconnect(object):
         resp = self.session.post(url, data=payload)
         if resp.status_code != 200:
             print(resp)
-            print(resp._content)
 
 
 if __name__ == '__main__':
